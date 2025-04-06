@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hassan's Ultimate File Converter | Convert Images, Word, Excel Files</title>
+    <meta name="description" content="Free online file converter. Convert images to PDF, Word to Excel, Excel to Word documents. No registration required. Fast, secure and easy to use.">
+    <meta name="keywords" content="file converter, image to PDF, Word to Excel, Excel to Word, document converter, online converter, free converter">
+    <meta name="author" content="Hassan Khalid">
+    <meta property="og:title" content="Hassan's Ultimate File Converter">
+    <meta property="og:description" content="Free online file converter for images and documents">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://yourwebsite.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #007bff;
+            --primary-hover: #0056b3;
+            --secondary: #6c757d;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --danger: #dc3545;
+            --info: #17a2b8;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: #333;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+        
+        /* Navigation Styles */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        /* Page Container */
+        .page-container {
+            display: none;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .page-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Home Page Styles */
+        .home-page h1 {
+            font-size: 2.5rem;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .home-page p.subtitle {
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+        
+        .tool-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .tool-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tool-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .tool-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .tool-card p {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Converter Page Common Styles */
+        .converter-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 0 auto;
+            align-items: flex-start;
+        }
+        
+        .converter-column {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .file-input {
+            padding: 20px;
+            border: 2px dashed var(--primary);
+            cursor: pointer;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            font-weight: 500;
+            color: var(--primary);
+            background: rgba(0, 123, 255, 0.05);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .file-input:hover {
+            background: rgba(0, 123, 255, 0.1);
+        }
+        
+        .file-input.highlight {
+            background: rgba(0, 123, 255, 0.2);
+            border-color: var(--primary-hover);
+        }
+        
+        .preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            min-height: 60px;
+        }
+        
+        .preview {
+            width: 90px;
+            height: 90px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--primary);
+            position: relative;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+        }
+        
+        .preview:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .preview .remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .preview:hover .remove-btn {
+            opacity: 1;
+        }
+        
+        .preview .file-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 10px;
+            padding: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .file-preview {
+            font-size: 15px;
+            color: var(--primary);
+            font-weight: 500;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(0, 123, 255, 0.05);
+            border-radius: 8px;
+        }
+        
+        .settings-group {
+            text-align: left;
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.02);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .settings-group h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+        
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        input:focus, select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+        
+        .btn {
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            width: 100%;
+            transition: all 0.3s;
+            font-size: 16px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn:disabled {
+            background: var(--secondary);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            opacity: 0.7;
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .btn-info {
+            background: var(--info);
+        }
+        
+        .btn-info:hover {
+            background: #138496;
+        }
+        
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+        }
+        
+        .loading-spinner {
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        .loading-text {
+            color: white;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .toast.error {
+            background: var(--danger);
+        }
+        
+        .toast.info {
+            background: var(--info);
+        }
+        
+        footer {
+            margin-top: 40px;
+            color: white;
+            font-size: 14px;
+            opacity: 0.8;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .back-btn {
+            background: var(--secondary);
+            margin-bottom: 20px;
+            max-width: 150px;
+        }
+        
+        .back-btn:hover {
+            background: #5a6268;
+        }
+        
+        /* SEO Content Section */
+        .seo-content {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .seo-content h2 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        
+        .seo-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .seo-content ul {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        
+        @media (max-width: 900px) {
+            .converter-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .converter-column {
+                width: 100%;
+                max-width: 500px;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .tool-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="#" class="logo" onclick="showPage('home')">
+            <i>🔄</i> Hassan's Converter
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#" class="active" onclick="showPage('home')">Home</a></li>
+            <li><a href="#" onclick="showPage('image-converter')">Image Converter</a></li>
+            <li><a href="#" onclick="showPage('word-excel-converter')">Word ↔ Excel</a></li>
+        </ul>
+    </nav>
+
+    <!-- Loading Overlay -->
+    <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+        <div class="loading-text" id="loadingText">Processing your files...</div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage">Conversion successful!</span>
+    </div>
+
+    <!-- Home Page -->
+    <div class="page-container home-page active" id="home-page">
+        <h1>Ultimate File Converter</h1>
+        <p class="subtitle">Convert between various file formats quickly and easily</p>
+        
+        <div class="tool-cards">
+            <div class="tool-card" onclick="showPage('image-converter')">
+                <i>🖼️</i>
+                <h3>Image Converter</h3>
+                <p>Convert images to PDF or other formats with customizable settings</p>
+            </div>
+            
+            <div class="tool-card" onclick="showPage('word-excel-converter')">
+                <i>📄</i>
+                <h3>Word to Excel</h3>
+                <p>Extract tables and text from Word documents to Excel spreadsheets</p>
+            </div>
+            
+            <div class="tool-card" onclick="showPage('word-excel-converter')">
+                <i>📊</i>
+                <h3>Excel to Word</h3>
+                <p>Convert Excel data to formatted Word documents</p>
+            </div>
+        </div>
+        
+        <!-- SEO Content -->
+        <div class="seo-content">
+            <h2>Free Online File Converter</h2>
+            <p>Hassan's Ultimate File Converter is a powerful online tool that allows you to convert between various file formats quickly and easily. Our service is completely free to use with no registration required.</p>
+            
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Image to PDF Converter:</strong> Convert multiple images to a single PDF document with customizable page settings</li>
+                <li><strong>Word to Excel Converter:</strong> Extract tables and text from Word documents to Excel format</li>
+                <li><strong>Excel to Word Converter:</strong> Transform spreadsheet data into formatted Word documents</li>
+                <li><strong>No File Size Limits:</strong> Convert files of any size (browser limitations may apply)</li>
+                <li><strong>Privacy Guaranteed:</strong> All conversions happen in your browser - we never see your files</li>
+            </ul>
+            
+            <h3>How to Use:</h3>
+            <ol>
+                <li>Select the conversion tool you need</li>
+                <li>Upload your file(s) by clicking or dragging and dropping</li>
+                <li>Adjust conversion settings if needed</li>
+                <li>Click the convert button</li>
+                <li>Download your converted file</li>
+            </ol>
+            
+            <p>Our file converter works on all modern browsers including Chrome, Firefox, Safari, and Edge. Whether you need to convert images for a presentation, extract data from a Word document, or create a report from Excel data, our tool has you covered.</p>
+        </div>
+    </div>
+
+    <!-- Image Converter Page -->
+    <div class="page-container" id="image-converter-page">
+        <button class="btn back-btn" onclick="showPage('home')">← Back to Home</button>
+        <h1>Image Converter</h1>
+        <p style="color: white; margin-bottom: 30px;">Convert Images to PDF/JPG with customizable settings</p>
+
+        <div class="converter-wrapper">
+            <div class="converter-column">
+                <div class="container">
+                    <h2>📷 Image Converter</h2>
+                    <div class="file-input" id="image-drop">
+                        <div>📂 Click or Drag & Drop Images</div>
+                        <small>Supports JPG, PNG, GIF, etc.</small>
+                    </div>
+                    <input type="file" id="imageInput" multiple accept="image/*" style="display: none;">
+                    
+                    <div class="preview-container" id="previewContainer">
+                        <div style="color: #666; font-size: 14px; width: 100%;" id="noImagesText">
+                            No images selected
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>⚙️ Conversion Settings</h3>
+                        <label for="imageFormat">Convert to:</label>
+                        <select id="imageFormat">
+                            <option value="pdf">PDF (Multiple images will create multi-page PDF)</option>
+                            <option value="jpg">JPG (Coming Soon)</option>
+                        </select>
+
+                        <label for="pageSize">Page Size:</label>
+                        <select id="pageSize">
+                            <option value="a4">A4 (210 × 297 mm)</option>
+                            <option value="letter">Letter (216 × 279 mm)</option>
+                            <option value="a5">A5 (148 × 210 mm)</option>
+                        </select>
+
+                        <label for="pageOrientation">Orientation:</label>
+                        <select id="pageOrientation">
+                            <option value="portrait">Portrait</option>
+                            <option value="landscape">Landscape</option>
+                        </select>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>🎨 Image Settings</h3>
+                        <label for="borderSize">Border Size (px):</label>
+                        <input type="number" id="borderSize" value="0" min="0" max="50">
+
+                        <label for="borderColor">Border Color:</label>
+                        <input type="color" id="borderColor" value="#000000">
+
+                        <label for="marginSize">Margin (px):</label>
+                        <input type="number" id="marginSize" value="20" min="0" max="100">
+                    </div>
+
+                    <button class="btn" id="convertImageBtn">
+                        <span>🔄 Convert Images</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Word/Excel Converter Page -->
+    <div class="page-container" id="word-excel-converter-page">
+        <button class="btn back-btn" onclick="showPage('home')">← Back to Home</button>
+        <h1>Document Converter</h1>
+        <p style="color: white; margin-bottom: 30px;">Convert between Word and Excel documents</p>
+
+        <div class="converter-wrapper">
+            <!-- Word to Excel Converter -->
+            <div class="converter-column">
+                <div class="container">
+                    <h2>📄 Word to Excel Converter</h2>
+                    <div class="file-input" id="word-drop">
+                        <div>📂 Click or Drag & Drop Word File</div>
+                        <small>Supports .doc and .docx formats</small>
+                    </div>
+                    <input type="file" id="wordInput" accept=".doc,.docx" style="display: none;">
+                    
+                    <div class="file-preview" id="wordFilePreview">No file selected</div>
+                    
+                    <div class="settings-group">
+                        <h3>⚙️ Conversion Options</h3>
+                        <label for="tableDetection">
+                            <input type="checkbox" id="tableDetection" checked> Detect tables automatically
+                        </label>
+                        
+                        <label for="preserveFormatting">
+                            <input type="checkbox" id="preserveFormatting"> Preserve text formatting
+                        </label>
+                    </div>
+
+                    <button class="btn" id="convertWordBtn">
+                        <span>📊 Convert to Excel</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Excel to Word Converter -->
+            <div class="converter-column">
+                <div class="container">
+                    <h2>📊 Excel to Word Converter</h2>
+                    <div class="file-input" id="excel-drop">
+                        <div>📂 Click or Drag & Drop Excel File</div>
+                        <small>Supports .xlsx, .xls, and .csv formats</small>
+                    </div>
+                    <input type="file" id="excelInput" accept=".xlsx,.xls,.csv" style="display: none;">
+                    
+                    <div class="file-preview" id="excelFilePreview">No file selected</div>
+                    
+                    <div class="settings-group">
+                        <h3>⚙️ Conversion Options</h3>
+                        <label for="includeHeaders">
+                            <input type="checkbox" id="includeHeaders" checked> Include column headers
+                        </label>
+                        
+                        <label for="formatAsTable">
+                            <input type="checkbox" id="formatAsTable" checked> Format as table
+                        </label>
+                    </div>
+
+                    <button class="btn btn-info" id="convertExcelBtn">
+                        <span>📄 Convert to Word</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Created By Hassan Khalid | Hassan's File Converter | © <span id="currentYear"></span> All Rights Reserved
+    </footer>
+
+    <script>
+        // Global variables
+        let images = [];
+        const previewContainer = document.getElementById("previewContainer");
+        const wordFilePreview = document.getElementById("wordFilePreview");
+        const excelFilePreview = document.getElementById("excelFilePreview");
+        const loadingOverlay = document.getElementById("loading");
+        const loadingText = document.getElementById("loadingText");
+        const toast = document.getElementById("toast");
+        const toastMessage = document.getElementById("toastMessage");
+        const noImagesText = document.getElementById("noImagesText");
+        const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+        const navLinks = document.getElementById("navLinks");
+
+        // Set current year in footer
+        document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+        // Mobile menu toggle
+        mobileMenuBtn.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+        });
+
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll(".page-container").forEach(page => {
+                page.classList.remove("active");
+            });
+            
+            // Show selected page
+            document.getElementById(`${pageId}-page`).classList.add("active");
+            
+            // Update nav links
+            document.querySelectorAll(".nav-links a").forEach(link => {
+                link.classList.remove("active");
+            });
+            
+            // Update active nav link
+            if (pageId === 'home') {
+                document.querySelector('.nav-links li:first-child a').classList.add("active");
+            } else if (pageId === 'image-converter') {
+                document.querySelector('.nav-links li:nth-child(2) a').classList.add("active");
+            } else if (pageId === 'word-excel-converter') {
+                document.querySelector('.nav-links li:last-child a').classList.add("active");
+            }
+            
+            // Close mobile menu if open
+            navLinks.classList.remove("active");
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Initialize the home page
+        showPage('home');
+
+        // ==================== DRAG AND DROP HANDLERS ====================
+        function setupDragAndDrop(dropZone, inputElement, previewElement, fileTypes) {
+            // Click handler
+            dropZone.addEventListener("click", () => {
+                inputElement.value = "";
+                inputElement.click();
+            });
+
+            // Drag over handler
+            dropZone.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                dropZone.classList.add("highlight");
+            });
+
+            // Drag leave handler
+            dropZone.addEventListener("dragleave", () => {
+                dropZone.classList.remove("highlight");
+            });
+
+            // Drop handler
+            dropZone.addEventListener("drop", (e) => {
+                e.preventDefault();
+                dropZone.classList.remove("highlight");
+                
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    if (fileTypes === "image") {
+                        handleImageFiles(files);
+                    } else if (fileTypes === "word") {
+                        handleWordFile(files[0]);
+                    } else if (fileTypes === "excel") {
+                        handleExcelFile(files[0]);
+                    }
+                }
+            });
+
+            // Change handler for file input
+            inputElement.addEventListener("change", function() {
+                if (fileTypes === "image") {
+                    handleImageFiles(this.files);
+                } else if (fileTypes === "word") {
+                    handleWordFile(this.files[0]);
+                } else if (fileTypes === "excel") {
+                    handleExcelFile(this.files[0]);
+                }
+            });
+        }
+
+        // Initialize drag and drop for all converters
+        setupDragAndDrop(
+            document.getElementById("image-drop"),
+            document.getElementById("imageInput"),
+            previewContainer,
+            "image"
+        );
+
+        setupDragAndDrop(
+            document.getElementById("word-drop"),
+            document.getElementById("wordInput"),
+            wordFilePreview,
+            "word"
+        );
+
+        setupDragAndDrop(
+            document.getElementById("excel-drop"),
+            document.getElementById("excelInput"),
+            excelFilePreview,
+            "excel"
+        );
+
+        // ==================== IMAGE CONVERTER ====================
+        function handleImageFiles(files) {
+            if (!files || files.length === 0) return;
+            
+            let validFiles = 0;
+            
+            for (let file of files) {
+                if (!file.type.startsWith("image/")) {
+                    showToast(`Skipped ${file.name} - not an image file`, 'error');
+                    continue;
+                }
+                
+                if (file.size > 5 * 1024 * 1024) { // 5MB limit
+                    showToast(`Skipped ${file.name} - file too large (max 5MB)`, 'error');
+                    continue;
+                }
+                
+                validFiles++;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    images.push({
+                        src: e.target.result,
+                        name: file.name,
+                        type: file.type
+                    });
+                    displayPreview();
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            if (validFiles > 0) {
+                showToast(`Added ${validFiles} image(s)`);
+            }
+        }
+
+        function displayPreview() {
+            if (images.length === 0) {
+                noImagesText.style.display = 'block';
+                previewContainer.innerHTML = '';
+                return;
+            }
+            
+            noImagesText.style.display = 'none';
+            previewContainer.innerHTML = '';
+            
+            images.forEach((img, index) => {
+                const div = document.createElement("div");
+                div.classList.add("preview");
+                div.innerHTML = `
+                    <img src="${img.src}" alt="Preview of ${img.name}">
+                    <button class="remove-btn" data-index="${index}" title="Remove image">×</button>
+                    <div class="file-name">${img.name}</div>
+                `;
+                previewContainer.appendChild(div);
+            });
+
+            // Add event listeners to remove buttons
+            document.querySelectorAll(".remove-btn").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    const index = parseInt(btn.getAttribute("data-index"));
+                    const removedImage = images.splice(index, 1)[0];
+                    displayPreview();
+                    showToast(`Removed ${removedImage.name}`);
+                });
+            });
+        }
+
+        document.getElementById("convertImageBtn").addEventListener("click", async () => {
+            if (images.length === 0) {
+                showToast("Please add images first!", 'error');
+                return;
+            }
+
+            const format = document.getElementById("imageFormat").value;
+            const borderSize = parseInt(document.getElementById("borderSize").value);
+            const borderColor = document.getElementById("borderColor").value;
+            const marginSize = parseInt(document.getElementById("marginSize").value);
+            const pageSize = document.getElementById("pageSize").value;
+            const orientation = document.getElementById("pageOrientation").value;
+
+            showLoading(true, "Converting images...");
+            
+            try {
+                if (format === "pdf") {
+                    // Dynamically load jsPDF library
+                    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+                    const { jsPDF } = window.jspdf;
+                    
+                    const pdf = new jsPDF({
+                        orientation: orientation === 'landscape' ? 'l' : 'p',
+                        unit: 'mm',
+                        format: pageSize
+                    });
+
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const pageHeight = pdf.internal.pageSize.getHeight();
+                    const marginMM = marginSize / 3.78; // Convert px to mm
+                    
+                    for (let i = 0; i < images.length; i++) {
+                        if (i > 0) pdf.addPage();
+                        
+                        const img = new Image();
+                        img.src = images[i].src;
+                        
+                        await new Promise(resolve => {
+                            img.onload = resolve;
+                            img.onerror = () => {
+                                showToast(`Error loading image ${images[i].name}`, 'error');
+                                resolve();
+                            };
+                        });
+                        
+                        // Calculate dimensions to fit within margins
+                        const imgRatio = img.width / img.height;
+                        let imgWidth = pageWidth - marginMM * 2;
+                        let imgHeight = imgWidth / imgRatio;
+                        
+                        if (imgHeight > pageHeight - marginMM * 2) {
+                            imgHeight = pageHeight - marginMM * 2;
+                            imgWidth = imgHeight * imgRatio;
+                        }
+                        
+                        // Center the image
+                        const x = (pageWidth - imgWidth) / 2;
+                        const y = (pageHeight - imgHeight) / 2;
+                        
+                        pdf.addImage({
+                            imageData: img,
+                            x,
+                            y,
+                            width: imgWidth,
+                            height: imgHeight
+                        });
+                        
+                        // Add border if specified
+                        if (borderSize > 0) {
+                            const borderMM = borderSize / 3.78;
+                            pdf.setDrawColor(borderColor);
+                            pdf.setLineWidth(borderMM);
+                            pdf.rect(
+                                x - borderMM/2,
+                                y - borderMM/2,
+                                imgWidth + borderMM,
+                                imgHeight + borderMM
+                            );
+                        }
+                    }
+                    
+                    pdf.save(`converted_images_${new Date().toISOString().slice(0,10)}.pdf`);
+                    showToast(`✅ Successfully converted ${images.length} image(s) to PDF!`);
+                } else {
+                    showToast("JPG conversion coming soon!", 'error');
+                }
+            } catch (error) {
+                console.error("Conversion error:", error);
+                showToast("Conversion failed. Please try again.", 'error');
+            } finally {
+                showLoading(false);
+            }
+        });
+
+        // ==================== WORD TO EXCEL CONVERTER ====================
+        function handleWordFile(file) {
+            if (!file) return;
+            
+            if (!file.name.match(/\.(doc|docx)$/)) {
+                showToast("Please select a Word document (.doc or .docx)", 'error');
+                document.getElementById("wordInput").value = "";
+                wordFilePreview.textContent = "No file selected";
+                return;
+            }
+            
+            if (file.size > 10 * 1024 * 1024) { // 10MB limit
+                showToast("File is too large (max 10MB)", 'error');
+                document.getElementById("wordInput").value = "";
+                wordFilePreview.textContent = "No file selected";
+                return;
+            }
+            
+            wordFilePreview.textContent = `📄 Selected: ${file.name} (${(file.size/1024/1024).toFixed(2)} MB)`;
+            showToast(`Word file ready for conversion`);
+        }
+
+        document.getElementById("convertWordBtn").addEventListener("click", async () => {
+            const wordFile = document.getElementById("wordInput").files[0];
+            if (!wordFile) {
+                showToast("Please select a Word file first!", 'error');
+                return;
+            }
+
+            const detectTables = document.getElementById("tableDetection").checked;
+            const preserveFormatting = document.getElementById("preserveFormatting").checked;
+            
+            showLoading(true, "Converting Word to Excel...");
+            const btn = document.getElementById("convertWordBtn");
+            btn.disabled = true;
+            btn.innerHTML = '<span>⏳ Processing...</span>';
+
+            try {
+                // Load required libraries
+                await loadScript('https://unpkg.com/mammoth/mammoth.browser.min.js');
+                await loadScript('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js');
+
+                const arrayBuffer = await readFileAsArrayBuffer(wordFile);
+                loadingText.textContent = "Extracting text from Word...";
+                
+                const result = await window.mammoth.extractRawText({ arrayBuffer });
+                let extractedText = result.value
+                    .trim()
+                    .split("\n")
+                    .filter(row => row.trim() !== "");
+                
+                // Simple table detection (if enabled)
+                if (detectTables) {
+                    extractedText = detectTablesInText(extractedText);
+                } else {
+                    // Just put each line in its own row
+                    extractedText = extractedText.map(row => [row.trim()]);
+                }
+                
+                loadingText.textContent = "Creating Excel file...";
+                
+                // Create workbook using xlsx
+                const workbook = window.XLSX.utils.book_new();
+                const sheet = window.XLSX.utils.aoa_to_sheet(extractedText);
+                window.XLSX.utils.book_append_sheet(workbook, sheet, "Extracted Data");
+                
+                const fileName = wordFile.name.replace(/\.[^/.]+$/, "") + "_converted.xlsx";
+                window.XLSX.writeFile(workbook, fileName);
+                
+                showToast(`✅ Successfully converted to Excel!`);
+            } catch (error) {
+                console.error("Conversion error:", error);
+                showToast("Conversion failed. Please try again.", 'error');
+            } finally {
+                showLoading(false);
+                btn.disabled = false;
+                btn.innerHTML = '<span>📊 Convert to Excel</span>';
+            }
+        });
+
+        function detectTablesInText(lines) {
+            const rows = [];
+            let maxColumns = 0;
+            
+            lines.forEach(line => {
+                const columns = line.split(/\t|\s{2,}/).filter(col => col.trim() !== "");
+                if (columns.length > 1) {
+                    maxColumns = Math.max(maxColumns, columns.length);
+                }
+            });
+            
+            if (maxColumns > 1) {
+                lines.forEach(line => {
+                    const columns = line.split(/\t|\s{2,}/).map(col => col.trim());
+                    while (columns.length < maxColumns) columns.push("");
+                    rows.push(columns);
+                });
+            } else {
+                rows.push(...lines.map(line => [line.trim()]));
+            }
+            
+            return rows;
+        }
+
+        // ==================== EXCEL TO WORD CONVERTER ====================
+        function handleExcelFile(file) {
+            if (!file) return;
+            
+            if (!file.name.match(/\.(xlsx|xls|csv)$/)) {
+                showToast("Please select an Excel file (.xlsx, .xls, .csv)", 'error');
+                document.getElementById("excelInput").value = "";
+                excelFilePreview.textContent = "No file selected";
+                return;
+            }
+            
+            if (file.size > 10 * 1024 * 1024) {
+                showToast("File is too large (max 10MB)", 'error');
+                document.getElementById("excelInput").value = "";
+                excelFilePreview.textContent = "No file selected";
+                return;
+            }
+            
+            excelFilePreview.textContent = `📊 Selected: ${file.name} (${(file.size/1024/1024).toFixed(2)} MB)`;
+            showToast(`Excel file ready for conversion`);
+        }
+
+        document.getElementById("convertExcelBtn").addEventListener("click", async () => {
+            const excelFile = document.getElementById("excelInput").files[0];
+            if (!excelFile) {
+                showToast("Please select an Excel file first!", 'error');
+                return;
+            }
+
+            const includeHeaders = document.getElementById("includeHeaders").checked;
+            const formatAsTable = document.getElementById("formatAsTable").checked;
+            
+            showLoading(true, "Converting Excel to Word...");
+            const btn = document.getElementById("convertExcelBtn");
+            btn.disabled = true;
+            btn.innerHTML = '<span>⏳ Processing...</span>';
+
+            try {
+                // Load required libraries
+                await loadScript('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js');
+                await loadScript('https://cdnjs.cloudflare.com/ajax/libs/docx/7.1.0/docx.min.js');
+
+                // Read Excel file
+                const arrayBuffer = await readFileAsArrayBuffer(excelFile);
+                const data = new Uint8Array(arrayBuffer);
+                const workbook = XLSX.read(data, { type: 'array' });
+                
+                // Get first sheet data as array of arrays
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                
+                // Process data for Word document
+                const { Document, Paragraph, TextRun, Table, TableRow, TableCell, HeadingLevel } = docx;
+                
+                // Create table rows
+                const tableRows = [];
+                const hasHeaders = includeHeaders && jsonData.length > 0;
+                
+                // Add header row if needed
+                if (hasHeaders && jsonData[0]) {
+                    const headerCells = jsonData[0].map(cell => {
+                        return new TableCell({
+                            children: [new Paragraph({
+                                children: [new TextRun({
+                                    text: cell !== undefined ? String(cell) : "",
+                                    bold: true
+                                })]
+                            })],
+                            shading: { fill: "DDDDDD" }
+                        });
+                    });
+                    tableRows.push(new TableRow({
+                        children: headerCells,
+                        tableHeader: true
+                    }));
+                }
+                
+                // Add data rows (skip first row if we used it for headers)
+                const startRow = hasHeaders ? 1 : 0;
+                const maxRows = Math.min(1000, jsonData.length); // Limit to 1000 rows for performance
+                
+                for (let i = startRow; i < maxRows; i++) {
+                    const row = jsonData[i] || [];
+                    const cells = row.map(cell => {
+                        return new TableCell({
+                            children: [new Paragraph({
+                                children: [new TextRun({
+                                    text: cell !== undefined ? String(cell) : ""
+                                })]
+                            })]
+                        });
+                    });
+                    
+                    // Ensure we have at least one cell
+                    if (cells.length === 0) {
+                        cells.push(new TableCell({
+                            children: [new Paragraph("")]
+                        }));
+                    }
+                    
+                    tableRows.push(new TableRow({ children: cells }));
+                }
+                
+                // Create the document
+                const doc = new Document({
+                    sections: [{
+                        properties: {},
+                        children: [
+                            new Paragraph({
+                                text: "Excel to Word Conversion",
+                                heading: HeadingLevel.HEADING_1,
+                                spacing: { after: 200 }
+                            }),
+                            new Paragraph({
+                                text: `Original file: ${excelFile.name}`,
+                                spacing: { after: 200 }
+                            }),
+                            new Table({
+                                rows: tableRows,
+                                width: { size: 100, type: "pct" },
+                                borders: formatAsTable ? {
+                                    top: { style: "single", size: 6, color: "AAAAAA" },
+                                    bottom: { style: "single", size: 6, color: "AAAAAA" },
+                                    left: { style: "single", size: 6, color: "AAAAAA" },
+                                    right: { style: "single", size: 6, color: "AAAAAA" },
+                                    insideHorizontal: { style: "single", size: 6, color: "AAAAAA" },
+                                    insideVertical: { style: "single", size: 6, color: "AAAAAA" }
+                                } : undefined
+                            })
+                        ]
+                    }]
+                });
+                
+                // Generate and download the Word file
+                const blob = await docx.Packer.toBlob(doc);
+                downloadFile(blob, excelFile.name.replace(/\.[^/.]+$/, "") + "_converted.docx");
+                
+                showToast(`✅ Successfully converted to Word document!`);
+                
+            } catch (error) {
+                console.error("Conversion error:", error);
+                showToast("Conversion failed. Please try again with a smaller file.", 'error');
+            } finally {
+                showLoading(false);
+                btn.disabled = false;
+                btn.innerHTML = '<span>📄 Convert to Word</span>';
+            }
+        });
+
+        // ==================== UTILITY FUNCTIONS ====================
+        function readFileAsArrayBuffer(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (event) => resolve(event.target.result);
+                reader.onerror = (error) => reject(error);
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        function showLoading(show, message = "Processing...") {
+            loadingText.textContent = message;
+            loadingOverlay.style.display = show ? "flex" : "none";
+            document.body.style.overflow = show ? "hidden" : "";
+        }
+
+        function showToast(message, type = 'success') {
+            toast.className = `toast ${type}`;
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function loadScript(src) {
+            return new Promise((resolve, reject) => {
+                if (document.querySelector(`script[src="${src}"]`)) {
+                    resolve();
+                    return;
+                }
+                
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = resolve;
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+        }
+
+        function downloadFile(blob, filename) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize
+        displayPreview();
+    </script>
+</body>
+</html>
